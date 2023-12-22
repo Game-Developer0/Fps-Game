@@ -10,13 +10,23 @@ public class Spawn : MonoBehaviour
     {
         InvokeRepeating("SpawnEnemy",5,10);   
     }
-    Vector3 GenratePosition()
+    Vector3 GenratePosition1()
     {
-        float spawnPosX = Random.Range(52,65);
-        float spawnPosz = Random.Range(78, 89);
-        Vector3 pos=new Vector3(spawnPosX,6f,spawnPosz);
+        float spawnPosX = 57.16f;
+        float spawnPosz = 94f;
+        float spawnPosY = 7f;
+        Vector3 pos=new Vector3(spawnPosX,spawnPosY,spawnPosz);
         return pos;
     }
+    Vector3 GenratePosition2()
+    {
+        float spawnPosX = 9.74f;
+        float spawnPosz = 88f;
+        float spawnPosY = 10.03f;
+        Vector3 pos = new Vector3(spawnPosX, spawnPosY, spawnPosz);
+        return pos;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -24,9 +34,9 @@ public class Spawn : MonoBehaviour
     }
     void SpawnEnemy()
     {
-        for (int i = 0; i < 2; i++)
-        {
-            Instantiate(enemyPefab, GenratePosition(), enemyPefab.transform.rotation);
-        }
+        
+        Instantiate(enemyPefab, GenratePosition1(), enemyPefab.transform.rotation);
+        Instantiate(enemyPefab, GenratePosition2(), enemyPefab.transform.rotation);
+        Instantiate(enemyPefab, transform.position, enemyPefab.transform.rotation);
     }
     }
