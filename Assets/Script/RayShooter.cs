@@ -49,6 +49,8 @@ public class RayShooter : MonoBehaviour
         int size = 12;
         float posX=camera.pixelWidth/2-size/4;
         float posY=camera.pixelHeight/2-size/2;
+        GUI.contentColor = Color.black;
         GUI.Label(new Rect(posX, posY, size, size), "*");
+        GUI.contentColor = Color.white;
     }
 }
