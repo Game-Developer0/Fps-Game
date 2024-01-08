@@ -18,6 +18,7 @@ public class ReactiveTarget : MonoBehaviour
             enemy.isAlive = false;
         }
         enemy.animator.SetBool("Death", true);
+        Debug.Log(enemy.name);
         StartCoroutine(Die());
     }
     IEnumerator Die()

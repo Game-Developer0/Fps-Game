@@ -30,7 +30,6 @@ public class SimpleShoot : MonoBehaviour
             gunAnimator = GetComponentInChildren<Animator>();
     }
 
-
     void Update()
     {
         //If you want a different input, change it here
@@ -44,30 +43,25 @@ public class SimpleShoot : MonoBehaviour
 
     //This function creates the bullet behavior
     void Shoot()
-{
-    if (muzzleFlashPrefab)
     {
-        // Create the muzzle flash
-        GameObject tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation);
+        if (muzzleFlashPrefab)
+        {
+            //Create the muzzle flash
+            GameObject tempFlash;
+            tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation);
 
-        // Destroy the muzzle flash effect
-        Destroy(tempFlash, destroyTimer);
+            //Destroy the muzzle flash effect
+            Destroy(tempFlash, destroyTimer);
+        }
+
+        //cancels if there's no bullet prefeb
+        if (!bulletPrefab)
+        { return; }
+
+        // Create a bullet and add force on it in direction of the barrel
+        Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
+
     }
-
-    // Cancel if there's no bullet prefab
-    if (!bulletPrefab)
-    {
-        return;
-    }
-
-    // Create a bullet and add force on it in the direction of the barrel
-    Rigidbody bulletRb = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>();
-    bulletRb.AddForce(barrelLocation.forward * shotPower);
-
-    // Draw a line from the barrel to the point where the bullet is heading
-    Debug.DrawLine(barrelLocation.position, barrelLocation.position + barrelLocation.forward * 10f, Color.red, 2f);
-}
-
 
     //This function creates a casing at the ejection slot
     void CasingRelease()
@@ -87,6 +81,5 @@ public class SimpleShoot : MonoBehaviour
         //Destroy casing after X seconds
         Destroy(tempCasing, destroyTimer);
     }
-
 
 }
