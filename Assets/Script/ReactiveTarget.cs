@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ReactiveTarget : MonoBehaviour
 {
-    
+    int i;
     // Start is called before the first frame update
     void Start()
     {
-        
+        i = 0;
     }
     public void ReactToHit()
     {
@@ -17,6 +17,7 @@ public class ReactiveTarget : MonoBehaviour
         {
             enemy.isAlive = false;
         }
+        enemy.animator.SetBool("Die", true);
         enemy.animator.SetBool("Death", true);
         Debug.Log(enemy.name);
         StartCoroutine(Die());

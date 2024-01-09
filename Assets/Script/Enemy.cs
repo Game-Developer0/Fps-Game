@@ -15,7 +15,8 @@ public class Enemy : MonoBehaviour {
     public bool isAlive;
     bool isAttacking;
     bool hasPerformedAnimation;
-    public NavMeshAgent agent; 
+    public NavMeshAgent agent;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -30,12 +31,13 @@ public class Enemy : MonoBehaviour {
         speed = Random.Range(4, 6);
         attack_animation = false;
         agent=GetComponent<NavMeshAgent>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (isAlive)
         {
             agent.SetDestination(player.transform.position);
@@ -54,24 +56,30 @@ public class Enemy : MonoBehaviour {
             agent.isStopped = true;
             animator.SetBool("Run Forward", false);
         }
-
-
-        //casting ray
-        Ray ray=new Ray(transform.position+new Vector3(0,1,0), transform.forward);
+        forwardRay();
+    }
+    void forwardRay()
+    {
+        //forward casting ray
+        Ray ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
         RaycastHit hit;
-        
-        if (Physics.SphereCast(ray,0.75f,out hit))
+
+        if (Physics.SphereCast(ray, 0.75f, out hit))
         {
-            ///Debug.DrawLine(ray.origin, hit.point, Color.red);
+            Debug.DrawLine(ray.origin, hit.point, Color.white);
             if (hit.collider.CompareTag("Player"))
             {
-
-                if(hit.distance<1.5f)
+                if (hit.distance < 3f)
+                {
+                    animator.SetTrigger("EnemyAttack");
+                }
+                if (hit.distance < 1.5f)
                 {
                     if (!hasPerformedAnimation)
                     {
                         attack_animation = true;
-                        float random = Random.Range(0, 4);
+                        
+                        float random = Random.Range(0, 5);
                         if (random == 0)
                         {
                             animator.SetTrigger("Attack6");
@@ -97,11 +105,11 @@ public class Enemy : MonoBehaviour {
                 }
                 else
                 {
-                    hasPerformedAnimation=false;
-                    attack_animation=false;
+                    hasPerformedAnimation = false;
+                    attack_animation = false;
                 }
             }
-            if (!hit.collider.CompareTag("Ground")&&!hit.collider.CompareTag("Player")&& !hit.collider.CompareTag("Gun"))
+            if (!hit.collider.CompareTag("Ground") && !hit.collider.CompareTag("Player") && !hit.collider.CompareTag("Gun"))
             {
 
                 if (hit.distance < obstacleRange)
@@ -111,8 +119,6 @@ public class Enemy : MonoBehaviour {
                 }
             }
         }
-        
     }
-
-   
+    
 }

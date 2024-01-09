@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Gun
   - Bullet
+  - FireTrap
+  - Enemy2
+  - Enemy
   layers:
   - Default
   - TransparentFX
