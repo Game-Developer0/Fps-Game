@@ -27,23 +27,8 @@ public class FPSInput : MonoBehaviour
         movement = Vector3.ClampMagnitude(movement, speed);
         
         movement*=Time.deltaTime;
-        
-        Yspeed += Physics.gravity.y * Time.deltaTime;
-        if (playerController.isGrounded)
-        {
-            playerController.stepOffset = originolStepOffset;
-            Yspeed = -0.5f;
-            if (Input.GetButtonDown("Jump"))
-            {
-                Yspeed = jumpForce;
-            }
-        }
-        else
-        {
-            playerController.stepOffset = 0f;
-        }
-        movement.y=Yspeed;
         movement =transform.TransformDirection(movement);
+        movement.y = -9.18f;
         playerController.Move(movement);
 
     }
